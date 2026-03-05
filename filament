@@ -4,3 +4,13 @@ cd filament-project
 
 Database set કરો .env માં પછી:
 php artisan migrate
+
+2. Filament Install
+composer require filament/filament
+php artisan filament:install --panels
+
+Admin user બનાવો:
+php artisan make:filament-user
+
+Admin panel URL:
+http://127.0.0.1:8000/admin
