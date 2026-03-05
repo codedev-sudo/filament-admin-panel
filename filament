@@ -14,3 +14,41 @@ php artisan make:filament-user
 
 Admin panel URL:
 http://127.0.0.1:8000/admin
+
+
+3. Required Models Create
+php artisan make:model Category -m
+php artisan make:model Post -m
+
+4. Category Migration
+Schema::create('categories', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->timestamps();
+});
+
+5. Post Migration
+create_posts_table.php
+Schema::create('posts', function (Blueprint $table) {
+    $table->id();
+    $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+    $table->string('title');
+    $table->text('description');
+    $table->string('image')->nullable();
+    $table->boolean('status')->default(1);
+    $table->timestamps();
+});
+php artisan migrate
+
+
+6. Model Relationship
+Category Model
+app/Models/Category.php
+
+public function posts()
+{
+    return $this->hasMany(Post::class);
+}
+
+
+
