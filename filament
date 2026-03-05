@@ -50,5 +50,68 @@ public function posts()
     return $this->hasMany(Post::class);
 }
 
+Post Model
+app/Models/Post.php
+public function category()
+{
+    return $this->belongsTo(Category::class);
+}
+
+7. Filament Resources Create
+
+php artisan make:filament-resource Category
+php artisan make:filament-resource Post
 
 
+8. CategoryResource Form
+CategoryResource.php
+
+Forms\Components\TextInput::make('name')
+    ->required()
+
+Tables\Columns\TextColumn::make('name')
+    ->searchable()
+
+9. PostResource Form (Relation + Image)
+Forms\Components\Select::make('category_id')
+    ->relationship('category','name')
+    ->required(),
+
+Forms\Components\TextInput::make('title')
+    ->required(),
+
+Forms\Components\Textarea::make('description'),
+
+Forms\Components\FileUpload::make('image')
+    ->image()
+    ->directory('posts'),
+
+Forms\Components\Toggle::make('status')
+
+10. PostResource Table
+Tables\Columns\TextColumn::make('title')
+    ->searchable(),
+
+Tables\Columns\TextColumn::make('category.name')
+    ->label('Category'),
+
+Tables\Columns\ImageColumn::make('image'),
+
+Tables\Columns\IconColumn::make('status')
+    ->boolean(),
+
+11. Storage Link (Image Upload)
+php artisan storage:link
+
+Images store થશે:
+storage/app/public/posts
+
+12. Role Permission Install
+composer require spatie/laravel-permission
+Publish:
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+php artisan migrate
+
+13. User Model Update
+User.php
