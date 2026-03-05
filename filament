@@ -115,3 +115,25 @@ php artisan migrate
 
 13. User Model Update
 User.php
+
+
+use Spatie\Permission\Traits\HasRoles;
+
+class User extends Authenticatable
+{
+    use HasRoles;
+}
+
+
+14. Roles Create
+php artisan tinker
+
+use Spatie\Permission\Models\Role;
+
+Role::create(['name'=>'admin']);
+Role::create(['name'=>'editor']);
+
+Assign role:
+$user = App\Models\User::find(1);
+$user->assignRole('admin');
+
