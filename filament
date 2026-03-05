@@ -137,3 +137,14 @@ Assign role:
 $user = App\Models\User::find(1);
 $user->assignRole('admin');
 
+15. Role Based Resource Access
+
+Example PostResource માં:
+
+public static function canViewAny(): bool
+{
+    return auth()->user()->hasRole('admin');
+}
+
+
+
