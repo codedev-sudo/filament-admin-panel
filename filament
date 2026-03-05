@@ -1,0 +1,6 @@
+1. Laravel Project Create
+composer create-project laravel/laravel filament-project
+cd filament-project
+
+Database set કરો .env માં પછી:
+php artisan migrate
